@@ -22,8 +22,9 @@ const mapStatuses = arrayToDictionary(['new', 'assigned', 'onWayToDelivery', 'wa
 export default class OrdersMap extends React.Component {
   constructor(props, context) {
     super(props, context);
-    state = {
-      defaultZoom : 10
+    this.state = {
+      defaultZoom : this.props.defaultZoom,
+      setOfDriverLocationIdsToShowPopup: this.props.setOfDriverLocationIdsToShowPopup
     }
     this.renderInfoWindow = this.renderInfoWindow.bind(this);
     this.renderDriverInfoWindow = this.renderDriverInfoWindow.bind(this);
@@ -31,8 +32,10 @@ export default class OrdersMap extends React.Component {
   }
 
   componentWillReceiveProps(props){
+    console.log(props,"componentWillReceiveProps");
     this.setState({
-      defaultZoom : props.defaultZoom
+      defaultZoom : props.defaultZoom,
+      setOfDriverLocationIdsToShowPopup : props.setOfDriverLocationIdsToShowPopup
     })
   }
 
@@ -40,22 +43,22 @@ export default class OrdersMap extends React.Component {
     this._map = map;
   }
 
-  shouldComponentUpdate(nextProps) {
-    const props = this.props;
-    return props.users !== nextProps.users
-      || props.orders !== nextProps.orders
-      || props.driversLocations !== nextProps.driversLocations
-      || props.selectedOrders !== nextProps.selectedOrders
-      || props.allPickUpPoints !== nextProps.allPickUpPoints
-      || props.setOfLocationsToShowPopup !== nextProps.setOfLocationsToShowPopup
-      || props.setOfDriverLocationIdsToShowPopup !== nextProps.setOfDriverLocationIdsToShowPopup
-      || props.company !== nextProps.company
-      || props.recipients !== nextProps.recipients
-      || props.polygon !== nextProps.polygon
-      || props.selectedDriver !== nextProps.selectedDriver
-      || props.nearestDrivers !== nextProps.nearestDrivers
-      || props.showModal !== nextProps.showModal;
-  }
+  // shouldComponentUpdate(nextProps) {
+  //   const props = this.props;
+  //   return props.users !== nextProps.users
+  //     || props.orders !== nextProps.orders
+  //     || props.driversLocations !== nextProps.driversLocations
+  //     || props.selectedOrders !== nextProps.selectedOrders
+  //     || props.allPickUpPoints !== nextProps.allPickUpPoints
+  //     || props.setOfLocationsToShowPopup !== nextProps.setOfLocationsToShowPopup
+  //     || props.setOfDriverLocationIdsToShowPopup !== nextProps.setOfDriverLocationIdsToShowPopup
+  //     || props.company !== nextProps.company
+  //     || props.recipients !== nextProps.recipients
+  //     || props.polygon !== nextProps.polygon
+  //     || props.selectedDriver !== nextProps.selectedDriver
+  //     || props.nearestDrivers !== nextProps.nearestDrivers
+  //     || props.showModal !== nextProps.showModal;
+  // }
   renderInfoWindow(ref, marker) {
     const renderedPages = _.map(marker.orders, ({ order, markerType, item }, index) => {
       const dispatcher = _.find(this.props.users, { id: order.dispatcherId }) || {};
@@ -105,13 +108,20 @@ export default class OrdersMap extends React.Component {
     this.props.getNearestDrivers(e,e)
   }
   renderDriverInfoWindow(ref, driverLocation) {
-    console.log("ref");
+    // console.log(ref,driverLocation);
     const driver = _.find(this.props.users, { id: driverLocation.driverId });
+    // console.log(driver,"driver");
     const driverForWindow = driver ? driver : gettext('CANNOT-GET-DRIVER');
+    console.log(driverForWindow,"driverForWindow");
     return (
       <InfoWindow key={`${ref}_driver_info_window`}
         onCloseclick={() => this.props.handleDriverMarkerClose(driverLocation.id)}>
-        <div>{driverForWindow.firstName}</div>
+        <div>
+          <div>NAME : {driverForWindow.firstName}</div>
+          <div>PHONE : {driverForWindow.phone}</div>
+          <div>DRIVER STATUS : {driverForWindow.driverStatus}</div>
+        </div>
+
       </InfoWindow>
     );
   }
@@ -123,6 +133,7 @@ export default class OrdersMap extends React.Component {
   }
 
   render() {
+    console.log(this.props,"render");
     const GettingStartedGoogleMap = withGoogleMap(props => (
       <GoogleMap
         ref={props.onMapMounted}
@@ -191,7 +202,15 @@ export default class OrdersMap extends React.Component {
           }
           const ref = `driver_${d.id}`;
           const position = { lat: d.lat, lng: d.lng };
-          const popup = props.setOfDriverLocationIdsToShowPopup.has(d.id) ? props.renderDriverInfoWindow(ref, d) : null;
+          let test = props.setOfDriverLocationIdsToShowPopup ;
+          console.log(test.values().next());
+          let popup = null ;
+          if(test.values().next().value != undefined){
+             popup = (test.values().next().value.hasOwnProperty("id") && test.values().next().value.id === d.id )? props.renderDriverInfoWindow(ref, d) : null;
+
+          }
+          // console.log(d.id,props.setOfDriverLocationIdsToShowPopup,props.setOfDriverLocationIdsToShowPopup.has(d.id),"*-----------------------------");
+          // console.log(popup,"popup");
           return (
             <Marker
               key={ref}
@@ -204,7 +223,6 @@ export default class OrdersMap extends React.Component {
         })}
         {
           props.nearestDrivers.map((nearestDriver, index) => {
-            console.log(nearestDriver);
             return (
               <Marker
                 key={nearestDriver.id}
@@ -307,7 +325,7 @@ export default class OrdersMap extends React.Component {
           driversLocations={driversLocations}
           setOfDriverLocationIdsToShowPopup={this.props.setOfDriverLocationIdsToShowPopup}
           renderDriverInfoWindow={this.renderDriverInfoWindow}
-          onDriverMarkerClick={(e,d)=>{this.props.onDriverMarkerClick(e.id,d);this.renderDriverInfoWindow(`driver_${e.id}`, e);}}
+          onDriverMarkerClick={this.props.onDriverMarkerClick}
           users={this.props.users}
           defaultZoom={this.state.defaultZoom}
           theme={theme}

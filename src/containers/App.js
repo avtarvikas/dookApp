@@ -530,7 +530,7 @@ export class App extends React.Component {
               <div>
                 <label className="autoassign_header_switcher autoassign_header_switcher_label">{gettext('AUTO-ASSIGN')}</label>
 
-                <div className="autoassign_header_switcher">
+                <div style={{marginTop:"0.8em"}} className="autoassign_header_switcher">
                   <AutoassignContainer />
                 </div>
               </div> : ''

@@ -87,7 +87,9 @@ export class OnDemandContainer extends React.Component {
     this.props.appActions.removeNearestDrivers();
     this.setOfLocationsToShowPopup = new Set();
     this.setOfDriverLocationIdsToShowPopup = new Set();
-    this.forceUpdate();
+    this.setState({
+      defaultZoom:11
+    })
   }
 
   startDraggingOrder(order) {
@@ -102,7 +104,7 @@ export class OnDemandContainer extends React.Component {
     this.setOfLocationsToShowPopup.add(stringifiedLocation);
     this.setState({
       defaultZoom:13
-    },() => this.forceUpdate())
+    })
   }
 
   handleMarkerClose(stringifiedLocation) {
@@ -264,10 +266,13 @@ export class OnDemandContainer extends React.Component {
   }
 
   onDriverMarkerClick(driverLocationId, driverId) {
+    console.log(driverLocationId,"driveronclick");
     this.selectedDriverId = driverId;
     this.setOfDriverLocationIdsToShowPopup.clear();
     this.setOfDriverLocationIdsToShowPopup.add(driverLocationId);
-    this.forceUpdate();
+    this.setState({
+      defaultZoom:12
+    },() => this.forceUpdate())
   }
 
   prepareUserList(users) {
