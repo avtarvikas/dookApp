@@ -1,0 +1,42 @@
+.sidebar-order{
+     width: 304px;
+     height: 75px;
+     line-height: 25px;
+     border-color: #bbbbbb;
+     border-width: 1px;
+     border-style: solid;
+    .delivery-point{
+        width: 250px;        
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    // .delivery-point:after{
+    //     content: "";
+	//     pointer-events: none;
+	//     position: absolute;
+	//     width: 100px;
+	//     height: 100%;
+	//     top: 0; right: 0;
+    //     background-image: -webkit-linear-gradient(right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+	//     background-image: -moz-linear-gradient(right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+	//     background-image: -ms-linear-gradient(right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+	//     background-image: -o-linear-gradient(right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+	//     background-image: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+    // }
+    .vehicle-icon{
+        width: 2em;
+    }
+    .pin-icon{
+        height: 1.5em;
+    }
+    .red{
+        color: red;
+    }
+    .yellow{
+        color: yellow;
+    }
+    .primary{
+       color: green;
+    }
+}

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>React Avatar Cropper</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://bootswatch.com/paper/bootstrap.min.css" rel="stylesheet">
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./css/prism.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js" charset="utf-8"></script>
+  <link href="./css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.min.css" />
+  <!--[if lt IE 9]>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.1.1/gh-fork-ribbon.ie.min.css" />
+  <![endif]-->
+</head>
+<body>
+  <div class="github-fork-ribbon-wrapper right">
+    <div class="github-fork-ribbon">
+        <a href="https://github.com/DropsOfSerenity/react-avatar-cropper">Fork me on GitHub</a>
+    </div>
+  </div>
+
+  <div class="jumbotron">
+    <div class="container-fluid text-center">
+    <div id='stars'></div>
+    <div id='stars2'></div>
+    <div id='stars3'></div>
+      <h1>React Avatar Cropper</h1>
+      <p>The end all solution for avatar cropping functionality in React.js</p>
+      <p><a class="btn btn-primary btn-lg" href="#demo" role="button">Learn more &raquo;</a></p>
+      <iframe style="left: 26px;position: relative;" src="https://ghbtns.com/github-btn.html?user=DropsOfSerenity&repo=react-avatar-cropper&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+    </div>
+  </div>
+  <div class="container-fluid no-pad">
+    <div class="col-md-12 no-pad">
+      <h2 id="demo">Demo</h2>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2 m-top">
+        <p>
+          React Avatar Cropper aims to be an out of the box solution to solve
+          the avatar cropping problem for <strong>99%</strong> of common use cases. Most of the
+          time you want a modal to pop up, allow the user to crop their uploaded
+          image, and then you want to receive that <strong>base64 data</strong> to display and
+          send to the server. React Avatar Cropper takes care of this use case.
+        </p>
+        <p>Taking heavy inspiration from slack's and facebook's user photo cropper,
+          react-avatar-cropper is here to make it easy.</p>
+        <p>
+          <strong>Try it out</strong>
+        </p>
+        <div class="well text-center">
+          <div style="display: inline-block" id="content"></div>
+        </div>
+      </div>
+    </div>
+</div>
+    <div class="container-fluid no-pad">
+      <div class="col-md-12 no-pad m-top">
+        <h2 id="installation">Installation</h2>
+      </div>
+    </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2 m-top">
+        <p>In your project</p>
+        <pre>npm install --save react-avatar-cropper</pre>
+        <p>react-avatar-cropper also <strong>depends</strong> on
+          <code>react</code> obviously :)
+          and <code>react-bootstrap</code> for modal functionality. To install
+          run the following.
+        </p>
+        <pre>npm install --save react</pre>
+        <pre>npm install --save react-bootstrap</pre>
+
+        <p>Now that you have it installed, make sure you have the bootstrap
+          javascript and css loaded, and require it into into your javascript to
+          start building components with it :)</p>
+
+          <strong>For ES6</strong>
+          <pre><code class="language-javascript">import AvatarCropper from "react-avatar-cropper";</code></pre>
+          <strong>For ES5</strong>
+          <pre><code class="language-javascript">var AvatarCropper = require("react-avatar-cropper");</code></pre>
+      </div>
+    </div>
+    </div>
+    <div class="container-fluid no-pad">
+      <div class="col-md-12 no-pad m-top">
+        <h2 id="usage">Usage</h2>
+      </div>
+    </div>
+    <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2 m-top">
+        <p>Usage is fairly simple, you can check the <code>/example</code>
+        folder on github for a slightly more complex use case
+        (the use case you see above in the demo). AvatarCropper simple takes
+        a <code>width</code> and a <code>height</code> to determine what size
+        avatar you would like. AvatarCropper then takes an <code>image</code>
+        property where you can pass an external image, a user uploaded data URI
+        or whatever you would like. An <code>onRequestHide</code> function is
+        passed to the underlying modal so you can decide how to dismiss the modal.
+        Lastly <code>onCrop</code> callback function is required, and gives you
+        back the cropped Image, for you to do with as you wish.</p>
+
+      <pre><code class="language-javascript">render: function() {
+  return (
+    &lt;AvatarCropper
+      onRequestHide={this.handleRequestHide}
+      onCrop={this.handleCrop}
+      image={this.state.img}
+      width={400}
+      height={400}
+    />
+  );
+}</code></pre>
+      </div>
+    </div>
+    </div>
+    <div class="container-fluid no-pad">
+      <div class="col-md-12 no-pad m-top">
+        <h2 id="contributing">Contributing and<br> Direction</h2>
+      </div>
+    </div>
+    <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2 m-top">
+        <p>
+          Feel free to fork and pull request for anything you would like.
+          Contributions are greatly appreciated. There are a few main long term
+          goals I would like to put out there to solidify the overall direction
+          of the project.
+        </p>
+
+        <h4 class="text-muted">Long Term Goals</h4>
+        <ul>
+          <li>Removing <code>react-bootstrap</code> as a dependency.</li>
+          <li>Customizable Modal Template</li>
+          <li>Testing coverage would be nice, I would like to aim for 100% coverage of well written tests.</li>
+          <li>Cross Browser Compatibility</li>
+          <li>Mobile Support</li>
+        </ul>
+        <h4 class="text-muted">Things that are out of scope</h4>
+        <ul>
+          <li>
+            Highly Custom Situations are out of scope, I want to handle the
+            99% use case <strong>really</strong> well and not worry about the 1%,
+            those cases would be better served by a custom solution anyway.
+          </li>
+          <li>
+            For now other forms of interaction are out of scope. I would like to
+            keep the interaction as a modal that handles the cropping and returns
+            the cropped image. I feel like this is 99% use case both for large
+            scale web apps and rapidly prototyped sites.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="smoothScroll.min.js"></script>
+  <script src="./bundle.js"></script>
+</body>
+</html>
