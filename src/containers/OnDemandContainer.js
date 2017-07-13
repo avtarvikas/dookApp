@@ -36,7 +36,8 @@ export class OnDemandContainer extends React.Component {
 
     this.state = {
       draggingOrder: undefined,
-      defaultZoom : 10
+      defaultZoom : 10,
+      defaultCenter : { lat: 24.727318, lng: 46.709809 }
     };
     this.showOrderOption = {
       assigned: true,
@@ -88,7 +89,7 @@ export class OnDemandContainer extends React.Component {
     this.setOfLocationsToShowPopup = new Set();
     this.setOfDriverLocationIdsToShowPopup = new Set();
     this.setState({
-      defaultZoom:11
+      defaultZoom:10
     })
   }
 
@@ -103,7 +104,8 @@ export class OnDemandContainer extends React.Component {
     this.setOfLocationsToShowPopup.clear();
     this.setOfLocationsToShowPopup.add(stringifiedLocation);
     this.setState({
-      defaultZoom:13
+      defaultZoom:12,
+      defaultCenter : stringifiedLocation
     })
   }
 
@@ -375,6 +377,7 @@ export class OnDemandContainer extends React.Component {
         </DragDropContextProvider>
         <OrdersMap
           defaultZoom={this.state.defaultZoom}
+          defaultCenter={this.state.defaultCenter}
           getNearestDrivers={this.props.appActions.getNearestDrivers}
           users={this.props.users}
           orders={this.props.orders}

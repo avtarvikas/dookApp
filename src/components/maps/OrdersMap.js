@@ -24,7 +24,8 @@ export default class OrdersMap extends React.Component {
     super(props, context);
     this.state = {
       defaultZoom : this.props.defaultZoom,
-      setOfDriverLocationIdsToShowPopup: this.props.setOfDriverLocationIdsToShowPopup
+      setOfDriverLocationIdsToShowPopup: this.props.setOfDriverLocationIdsToShowPopup,
+      defaultCenter:this.props.defaultCenter
     }
     this.renderInfoWindow = this.renderInfoWindow.bind(this);
     this.renderDriverInfoWindow = this.renderDriverInfoWindow.bind(this);
@@ -35,7 +36,8 @@ export default class OrdersMap extends React.Component {
     console.log(props,"componentWillReceiveProps");
     this.setState({
       defaultZoom : props.defaultZoom,
-      setOfDriverLocationIdsToShowPopup : props.setOfDriverLocationIdsToShowPopup
+      setOfDriverLocationIdsToShowPopup : props.setOfDriverLocationIdsToShowPopup,
+      defaultCenter:props.defaultCenter
     })
   }
 
@@ -137,7 +139,7 @@ export default class OrdersMap extends React.Component {
     const GettingStartedGoogleMap = withGoogleMap(props => (
       <GoogleMap
         ref={props.onMapMounted}
-        defaultCenter={{ lat: 24.727318, lng: 46.709809 }}
+        defaultCenter={props.defaultCenter || { lat: 24.727318, lng: 46.709809 }}
         defaultZoom={props.defaultZoom}
         onClick={props.onMapClick}
         defaultOptions={{ scrollwheel: false, styles: props.theme }}>
@@ -223,12 +225,13 @@ export default class OrdersMap extends React.Component {
         })}
         {
           props.nearestDrivers.map((nearestDriver, index) => {
+            console.log(nearestDriver,"****************************");
             return (
               <Marker
                 key={nearestDriver.id}
                 position={nearestDriver.driverGpsLocations.gpsLocation}
-                icon={markerIcons.carIcon}
-                // label={' '+nearestDriver.google.rows[0].elements[0].distance.text+', '+nearestDriver.google.rows[0].elements[0].duration.text+', '+nearestDriver.google.rows[0].elements.length + ' Drivers '}
+                icon={'./title1.png'}
+                label={nearestDriver.google.fullWay.distance+', '+nearestDriver.google.fullWay.duration}
                 />
             );
           })
